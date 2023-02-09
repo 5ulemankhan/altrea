@@ -1,0 +1,198 @@
+<?php 
+session_start();
+error_reporting(0);
+include('db.php');
+if(isset($_GET['e'])){$e = $_GET['e'];}else{$e = '0';}
+if(isset($_GET['f'])){$f = $_GET['f'];}
+$head = '33';
+$uID = $_SESSION["uID"];
+$userName = $_SESSION["uName"];
+$uAuth = $_SESSION["uAuth"];
+$uDel = $_SESSION["uDel"];
+$uDel = $_SESSION["set"];
+
+$queryMat = "SELECT * FROM `mmain` WHERE `mDel`='1';";$resultMat = mysqli_query($conn,$queryMat);$dataMat = mysqli_fetch_all($resultMat, MYSQLI_ASSOC);    
+
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>ALTREA | See The Future</title>
+<!-- Meta --><meta name="description" content="AltRea"><meta name="author" content="Architude"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<?php include'head.php'; ?>
+<body>
+<?php include 'header.php'; ?>   
+<div class="content-wrap">
+    <div class="pt-100 pb-60">
+        <div class="container">
+            <div class="row mb-n8">
+            
+                <div class="col-12 col-lg-10 col-xl-8">
+<h1 class="h2 mt-15 pb-4 pb-sm-0 mb-50">Your Project Your Pallete🎨</h1>
+                </div>
+            
+            </div>
+<?php if ($e=='1') {?>   <p style="background-color:MediumSeaGreen; color: #fff; text-align:center;">Thanks for contacting us <?php echo $f; ?>, We'll get back to you soon.</p><?php } ?>
+<div class="row gh-1 gv-2 pb-10">
+<!--*****************************************************************************************************************************************************************************************************-->
+                        <div class="col-12 col-l g-8 mt-5 mt-lg-0">
+                            <form action="logic.php" method="post" enctype="multipart/form-data">
+                                <input type="text" name="check11" value="11" hidden>
+
+
+
+
+                    <div class="row gh-1 gv-2" id="test">
+                        <div class="col-12 col-m d-2 m-2 py-1" style="background-color: #f00;">
+                            <p style="margin-bottom: 0px;"><strong>Walls</strong><button onclick="buttonPressed()" class="btn-with-ba ll" style="float: right; margin-right: 5px;">Add Wall</button></p>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                                    <div class="col-12 p-0">
+<button class="btn btn-dark btn-with-ball mt-20" type="submit" name="button">submit<span class="btn-ball"></span></button>
+                                    </div>
+                         
+
+
+
+
+
+
+
+
+
+
+
+                            </form>
+                        </div>
+<!--*****************************************************************************************************************************************************************************************************-->
+                        <div class="col-12 col-lg -8 mt-5 mt-lg-0">
+                            <form action="logic.php" method="post" enctype="multipart/form-data">
+                                <input type="text" name="check11" value="11" hidden>
+                                <div class="row gh-1 gv-2">
+<div class="col-12 col-md-3" style="transform: translateY(0px); transition-duration: 400ms; opacity: 1;">
+<select name="cPType" class="form-control">
+                                            <option selected="">Object</option>
+                                            <option>Door</option><option>Wall</option><option>Floor</option><option>Ceiling</option><option>Other</option>
+                                        </select>
+                                    </div>
+<div class="col-12 col-md-3" style="transform: translateY(0px); transition-duration: 400ms; opacity: 1;">
+<input name="cName" type="name" class="form-control" placeholder="Your Name *" required>
+                                    </div>
+<div class="col-12 col-md-3" style="transform: translateY(0px); transition-duration: 400ms; opacity: 1;">
+<select name="cPType" class="form-control">
+                                            <option selected="">Main</option>
+                                            <option>Residental</option><option>Commerical</option><option>Hospatility</option><option>Other</option>
+                                        </select>
+                                    </div>
+<div class="col-12 col-md-3" style="transform: translateY(0px); transition-duration: 400ms; opacity: 1;">
+<select name="cBudget" class="form-control">
+                                            <option selected="">Sub</option>
+                                            <option>&lt; 10 000</option><option>10-20k</option><option>20-30k</option><option>&gt; 30 000</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12" style="transform: translateY(0px); transition-duration: 400ms; opacity: 1;">
+<button class="btn btn-dark btn-with-ball mt-20" type="submit" name="button">Add Material<span class="btn-ball"></span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+<!--*****************************************************************************************************************************************************************************************************-->
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<?php include 'footer.php'; ?>
+
+
+
+
+<script>
+i = 1;
+<?php $i=5; ?>
+const buttonPressed = () => {    
+<?php  $i=$i+1;
+foreach($dataMat as $row){$name .= "<option value=".$row['mID']."|".$i.">".$row['mName']."</option>"; }?>
+const data = "<?php  echo $name; ?>";
+document.getElementById("test").innerHTML +="<div class=\"col-12 col-md-2 p-0 px-1\"><input name=\"cName\" type=\"text\" class=\"form-control p-0\" style=\"text-align: center;\" placeholder=\"Wall_\" readonly><input name=\"cName\" type=\"name\" class=\"form-control p-0\" style=\"text-align: center;\" placeholder=\"Wall Name\" required><select id=\"dropC\"  onchange=\"myFunction()\" name=\"___\" class=\"form-control p-0\"><option selected=\"\">Select Cat"+i+"</option>"+data+"</select><p id=\"demo\"></p><div id=\"dropImg"+i+"\" style=\"width:100%; height: 50px;\"></div></div>";
+
+/*$(document).ready(function() {
+  $('#dropC').on('change', function() {var dropC = this.value;$.ajax({url:"dropdown.php",type:"POST",data:{dropC:dropC,p:'7'},cache: false,success:function(result){$("#dropP").html(result);}});});    
+  $('#dropP').on('change', function() {var sId = this.value;$.ajax({url:"dropdown.php",type:"POST",data:{sId:sId,p:'8'},cache:false,success:function(result){$("#dropImg").html(result);}});});});
+
+
+ id="mySelect" onchange="myFunction()"
+
+*/
+
+
+
+
+
+
+i++;
+}
+function myFunction() {
+  var x = document.getElementById("dropC").value;
+  document.getElementById("demo").innerHTML = "You selected: " + x;
+}
+
+
+$(document).ready(function() {
+  $('#dropC1').on('change', function() {alert('hello');})});    
+
+
+
+</script>
+
+
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
